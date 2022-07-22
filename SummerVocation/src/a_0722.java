@@ -13,37 +13,31 @@ public class a_0722 {
 		int n = Integer.parseInt(st.nextToken());
 		int m = Integer.parseInt(st.nextToken());
 		
-		int[] length = new int[n];
-		int[] count = new int[m];
-		for(int i=0;i<n;i++) {
-			st=new StringTokenizer(br.readLine());
-			length[i]=Integer.parseInt(st.nextToken());
+		int[] bot = new int[m + 2];
+		int[] top = new int[m + 2];
+		for(int i=0;i<n/2;i++) {
+			bot[Integer.parseInt(br.readLine())]++;
+			top[m - Integer.parseInt(br.readLine()) + 1]++;
 		}
-		for(int i=0;i<n;i++) {
-			if(i%2!=0) {
-				for(int j=m-length[i];j<m;j++) {
-					count[j]++;
-				}
-			}
-			else { 
-				for(int j=0;j<length[i];j++) {
-					count[j]++;
-				}
-			}
+		for (int i = 1; i <= m; i++) {
+			bot[i] += bot[i - 1];
 		}
-		Arrays.sort(count);
-		int min=count[0];
-		int samenum=1;
-		
-		for(int i=1;i<n;i++) {
-			if(count[i]!=min) {
-				System.out.println(count[0]+" "+samenum);
-				System.exit(0);
-			}
-			else {
-				samenum++;
-			}
+
+		for (int i = m; i >= 1; i--) {
+			top[i] += top[i + 1];
 		}
+		int min=n;
+		int countnum=0;
+		for(int i=1;i<=m;i++) {
+			int obs = (bot[m] - bot[i - 1]) + (top[1] - top[i + 1]);
+
+			if (obs < min) {
+				min = obs;
+				countnum = 1;
+			} else if (obs == min)
+				countnum++;
+		}
+		System.out.println(min+" "+countnum);
 	
 	}
 }
