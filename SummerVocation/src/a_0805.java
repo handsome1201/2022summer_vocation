@@ -35,17 +35,14 @@ public class a_0805 {
 
 			stack.push(a[i]);
 			
-			if(count==n-m) {
-				break;
-			}
 
 		}
 		Stack<Integer> stack1 = new Stack<Integer>();
 		while(!stack.empty()) {
 			stack1.push(stack.pop());
 		}
-		while(!stack1.isEmpty()) {
-			System.out.println(stack1.pop());
+		for(int i=0;i<n-m;i++) {
+			System.out.print(stack1.pop());
 		}
 	}
 }
